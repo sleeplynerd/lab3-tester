@@ -1,0 +1,33 @@
+#ifndef VARIANT_H
+#define VARIANT_H
+
+#ifndef STRING_H
+#define STRING_H
+#include <string>
+#endif // STRING_H
+
+#define VARIANT(vrnt) variant##vrnt##(##)
+
+class Variant {
+public:
+	bool isOrdered();	// Порядок следования дуг не нарушен
+	bool isRandom();	// Результаты выполнения случайны
+	bool isFull();		// Все дуги графа задействованы
+	bool isParallel();	// Предполагаемое параллельное выполнение 
+						//   не выглядит последовательным (AAABBB вместо ABABBA)
+	Variant( int variant );
+	
+private:
+	struct Stage {
+		std::string arcs;
+		int stage;
+		Stage( std::string arcsVal, int stageVal);
+	};
+	
+	static const std::string stgListDir( "@stgListDir@");
+	static const std::string stgListPfx( "stages_list_" );
+	const int vrnt;
+	std::list<Stage> stages;
+	std::string alphabet;
+};
+#endif //VARIANT_H
