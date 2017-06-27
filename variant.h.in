@@ -6,28 +6,28 @@
 #include <string>
 #endif // STRING_H
 
-#define VARIANT(vrnt) variant##vrnt##(##)
+#define VARIANT(mVrnt) variant##mVrnt##(##)
 
 class Variant {
 public:
 	bool isOrdered();	// Порядок следования дуг не нарушен
 	bool isRandom();	// Результаты выполнения случайны
 	bool isFull();		// Все дуги графа задействованы
-	bool isParallel();	// Предполагаемое параллельное выполнение 
+	bool isParallel();	// Предполагаемое параллельное выполнение
 						//   не выглядит последовательным (AAABBB вместо ABABBA)
 	Variant( int variant );
-	
+
 private:
 	struct Stage {
 		std::string arcs;
 		int stage;
 		Stage( std::string arcsVal, int stageVal);
 	};
-	
-	static const std::string stgListDir( "@stgListDir@");
-	static const std::string stgListPfx( "stages_list_" );
-	const int vrnt;
-	std::list<Stage> stages;
-	std::string alphabet;
+
+	static const std::string STG_LIST_DIR( "@stgListDir@");
+	static const std::string STG_LIST_PFX( "stages_list_" );
+	const int VRNT;
+	std::list<Stage> mStages;
+	std::string mAlphabet;
 };
 #endif //VARIANT_H
