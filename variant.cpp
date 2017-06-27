@@ -6,11 +6,6 @@ Variant::Variant( int variant ) : vrnt( variant ) {
 	std::string buf;
 	std::string stgListPath( stgListDir + "/" + stgListPfx + stgListPfx + std::to_string( vrnt ) );
 	std::fstream file( stgListPath );
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> c5ceea119f1366db29df820be79a5a04ae043696
 	if( file ) {
 		std::getline( file, alphabet );						// Первая строка - список дуг
 		for( int i = 0; std::getline( file, buf ); i++) {
@@ -18,8 +13,3 @@ Variant::Variant( int variant ) : vrnt( variant ) {
 		}
 	}
 }
-<<<<<<< HEAD
-
-// Hello there 
-=======
->>>>>>> c5ceea119f1366db29df820be79a5a04ae043696
