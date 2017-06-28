@@ -24,10 +24,12 @@ private:
 		Stage( std::string arcsVal, int stageVal);
 	};
 
-	static const std::string STG_LIST_DIR( "@stgListDir@");
-	static const std::string STG_LIST_PFX( "stages_list_" );
+	static const std::string STG_LIST_DIR( "@STG_LIST_DIR@");
+	static const std::string STG_LIST_PFX( "@STG_LIST_PFX@" );
 	const int VRNT;
 	std::list<Stage> mStages;
 	std::string mAlphabet;
+
+	bool isEstStage( char symbol, int stage );
 };
 #endif //VARIANT_H
