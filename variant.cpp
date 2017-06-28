@@ -36,9 +36,10 @@ bool Variant::isRandom() {
 	bool flag = false;
 
 	for( int i = 0; i < N_LAUNCHES; i++ ) {
-		if( buf.compare( VARIANT( VRNT ) ) == 0 ) {
+		if( buf.compare( VARIANT( VRNT ) ) != 0 ) {
 			flag = true;
-			i = N_LAUNCHES;
+			//i = N_LAUNCHES;
+			break;
 		}
 	}
 
@@ -56,4 +57,17 @@ bool Variant::isFull() {
 	}
 
 	return flag;
+}
+
+bool Variant::isEstStage( char symbol, int stage ) {
+	bool flag = false;
+
+	for( std::list<Stage>::iterator it = mStages.begin(); it!= mStages.end(); ++it ) {
+		if( it -> stage == stage ) {
+			if( it -> arcs.find( symbol )  != std::string::npos ) {
+				flag = true;
+			}
+			break;
+		}
+	}
 }
