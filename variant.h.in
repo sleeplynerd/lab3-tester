@@ -1,3 +1,10 @@
+/*!
+   \file "Filename"
+   \brief "Description"
+   \author "Your name"
+   \date "DD"/"Month"/"Year"
+*/
+
 #ifndef VARIANT_H
 #define VARIANT_H
 
@@ -15,11 +22,27 @@
 
 class Variant {
 public:
-	bool isOrdered();	// Порядок следования дуг не нарушен
-	bool isRandom();	// Результаты выполнения случайны
-	bool isFull();		// Все дуги графа задействованы
-	bool isParallel();	// Предполагаемое параллельное выполнение
-						//  не выглядит последовательным (AAABBB вместо ABABBA)
+	/**
+	 * Проверяет, нарушен ли порядок следования дуг.
+	 */
+	bool isOrdered();
+	/**
+	 * Проверяет, случайны ли результаты выполнения программы
+	 */
+	bool isRandom();
+	/**
+	 * Проверяет, что все дуги графа задействованы
+	 */
+	bool isFull();
+	/**
+	 * Проверяет, что предполагаемое параллельное выполнение не выглядит
+	 * последовательным (AAABBB) вместо (ABBABA)
+	 */
+	bool isParallel();
+	/**
+	 *
+	 * @param variant Номер варианта
+	 */
 	Variant( int variant );
 
 private:

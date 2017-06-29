@@ -1,15 +1,11 @@
-/*!
-   \file "variant.cpp"
-   \author "Dmitry Murashov"
-   \date "2017-06-28"
-*/
-
 #include "variant.h"
+
+// TODO: проверить функции на предмет того, возвращают ли они результат #sdff
 
 Variant::Variant( int variant ) : VRNT( variant ) {
 	std::string buf;
-	std::string stgListPath( STG_LIST_DIR + "/" + STG_LIST_PFX + std::to_string( VRNT ) );
-	std::fstream file( stgListPath );
+	std::string filePath( STG_LIST_DIR + "/" + STG_LIST_PFX + std::to_string( VRNT ) );
+	std::fstream file( filePath );
 
 	std::getline( file, mAlphabet );					// Первая строка - список дуг
 	for( int i = 0; std::getline( file, buf ); i++) {
@@ -43,7 +39,7 @@ bool Variant::isRandom() {
 
 	for( int i = 0; i < N_LAUNCHES; i++ ) {
 		if( buf.compare( VARIANT( VRNT ) ) != 0 ) {
-			flag = true;
+			flag = true;		// При первом несовпадении считаем, что выполнение случайно
 			//i = N_LAUNCHES;
 			break;
 		}
@@ -81,23 +77,28 @@ bool Variant::isParallel() {
 }
 
 bool Variant::isLongStage( const Stage& stage, const std::string& output ) {
-	return ( getStageFragment( stage, output ) > stage -> stageAlphabet );
+	return ( getStageFragment( stage, output ).length() > ( stage -> stageAlphabet ).length() );
 }
 
+
 bool Variant::isParallelStage( const Stage& stage, const std::string& output ) {
-	const std::string sf( getStageFragment( stage, output ) );	// Stage Fragment
-	const std::string sa( stage -> stageAlphabet );				// Stage Alphabet
-	int sfp = 0;												// Stage Fragment Position
-	int sap = 0;												// Stage Alphabet Position
+	std::string sf( getStageFragment( stage, output ) );	// Stage Fragment
+	std::string sa( stage -> stageAlphabet );				// Stage Alphabet
+	int sfp = 0;											// Stage Fragment Position
+	int sap = 0;											// Stage Alphabet Position
 	int counter;
 	bool flag = false;
 
-	for( sap = 0; sap < sa.length(); ++sap ) {					//  Обход каждого элемента "алфавита"
+	//  Обход каждого элемента "алфавита"
+	for( sap = 0; sap < sa.length(); ++sap ) {
 		counter = std::count( sf.begin(), sf.end(), sa[sap] );
+		// Появление двух и более элементов допускает их взаимные перестановки.
+		//   Проверяем, не собрались ли элементы в "цепь" (AAABBB)
 		if( counter >= 2 ) {
 			sfp = sf.find( sa[sap] );
+			// Проверяем, прерываются ли подряд идущие символы другими символами (AABA)
 			for( int i = sfp + 1; i < sfp + counter; ++i) {
-				if( sf[i] != sf[sfp] ) {
+				if( sf[i] != sa[sap] ) {
 					flag = true;
 					// Выход из циклов
 					sap = sa.length();
@@ -106,6 +107,8 @@ bool Variant::isParallelStage( const Stage& stage, const std::string& output ) {
 			}
 		}
 	}
+
+	return flag;
 }
 
 bool Variant::isEstStage( char symbol, int stage ) {
@@ -113,12 +116,14 @@ bool Variant::isEstStage( char symbol, int stage ) {
 
 	for( std::list<Stage>::iterator it = mStages.begin(); it != mStages.end(); ++it ) {
 		if( it -> stage == stage ) {
-			if( it -> arcs.find( symbol )  != std::string::npos ) {
+			if( it -> arcs.find( symbol ) != std::string::npos ) {
 				flag = true;
 			}
 			break;
 		}
 	}
+
+	return flag;
 }
 
 std::string Variant::getStageFragment( const Stage& stage, const std::string& output ) {
