@@ -6,7 +6,12 @@
 #include <string>
 #endif // STRING_H
 
-#define VARIANT(mVrnt) variant##mVrnt##(##)
+#ifndef ALGORITHM_H
+#define ALGORITHM_H
+#include <algorithm>
+#endif
+
+#define VARIANT(vrnt) variant##vrnt##(##)
 
 class Variant {
 public:
@@ -19,8 +24,8 @@ public:
 
 private:
 	struct Stage {
-		std::string arcs;
-		int stage;
+		const std::string stageAlphabet;
+		const int stage;
 		Stage( std::string arcsVal, int stageVal);
 	};
 
@@ -31,5 +36,8 @@ private:
 	std::string mAlphabet;
 
 	bool isEstStage( char symbol, int stage );
+	bool isLongStage( const Stage& stage, const std::string& output )
+	bool isParallelStage( const Stage& stage, const std::string& output );
+	std::string getStageFragment( const Stage& stage, const std::string& output );
 };
 #endif //VARIANT_H
