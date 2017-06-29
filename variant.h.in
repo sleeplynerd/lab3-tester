@@ -19,7 +19,7 @@ public:
 	bool isRandom();	// Результаты выполнения случайны
 	bool isFull();		// Все дуги графа задействованы
 	bool isParallel();	// Предполагаемое параллельное выполнение
-						//   не выглядит последовательным (AAABBB вместо ABABBA)
+						//  не выглядит последовательным (AAABBB вместо ABABBA)
 	Variant( int variant );
 
 private:

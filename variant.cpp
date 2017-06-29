@@ -92,7 +92,7 @@ bool Variant::isParallelStage( const Stage& stage, const std::string& output ) {
 	int counter;
 	bool flag = false;
 
-	for( sap = 0; sap < sa.length(); ++sap ) {					// Обход каждого элемента "алфавита"
+	for( sap = 0; sap < sa.length(); ++sap ) {					//  Обход каждого элемента "алфавита"
 		counter = std::count( sf.begin(), sf.end(), sa[sap] );
 		// Если во фрагменте больше одного вхождения элемента, становятся
 		//   возможными их (элементов) взаимные перестановки.
