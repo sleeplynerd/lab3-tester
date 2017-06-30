@@ -13,10 +13,30 @@ Variant::Variant( int variant ) : VRNT( variant ) {
 	}
 }
 
+Variant::Variant() : VRNT( DEMO_VRNT ) {
+	mAlphabet.assign( "abcdefghkmnp" );
+	mStages.push_back( Stage( "a", 0) );
+	mStages.push_back( Stage( "cdfb", 1 ) );
+	mStages.push_back( Stage( "edfb", 2 ) );
+	mStages.push_back( Stage( "kgmb", 3 ) );
+	mStages.push_back( Stage( "khmb", 4 ) );
+	mStages.push_back( Stage( "nb", 5 ) );
+	mStages.push_back( Stage( "p", 6 ) );
+}
+
+Variant::Variant( const std::string& alphabet,
+	const std::list<Stage>& stages,
+	const int& variant ) : VRNT( variant ) {
+
+	mAlphabet.assign( alphabet );
+	mStages.assign( stages.begin(), stages.end() );
+
+	}
+
 Variant::Stage( std::string stageAlphabet, int stageVal) : stageAlphabet( arcsVal ), stage( stageVal ) {}
 
 bool Variant::isOrdered() {
-	std::string buf( VARIANT( VRNT ) );
+	std::string buf( getOutput() );
 	bool flag = true;
 	int currStage = 0;
 
@@ -34,11 +54,11 @@ bool Variant::isOrdered() {
 
 bool Variant::isRandom() {
 	const int N_LAUNCHES = 100;
-	std::string	buf = VARIANT( VRNT );
+	std::string	buf = getOutput();
 	bool flag = false;
 
 	for( int i = 0; i < N_LAUNCHES; i++ ) {
-		if( buf.compare( VARIANT( VRNT ) ) != 0 ) {
+		if( buf.compare( getOutput() ) != 0 ) {
 			flag = true;
 			//i = N_LAUNCHES;
 			break;
@@ -49,7 +69,7 @@ bool Variant::isRandom() {
 }
 
 bool Variant::isFull() {
-	std::string result( VARIANT( VRNT ) );
+	std::string result( getOutput() );
 	bool flag = true;
 
 	for( int i = 0; i < mAlphabet.length(); i++ ) {
@@ -62,24 +82,45 @@ bool Variant::isFull() {
 }
 
 bool Variant::isParallel() {
-	const std::string output( VARIANT( VRNT ) );
+	const std::string output( getOutput() );
 	std::list<Stage>::iterator it;
-	bool flag = true;
+	bool flag = isLongOutput();
 
-	for( it = mStages.begin(); it != mStages.end(); ++it ) {
-		flag = flag && isLongStage( it, output ) && isParallelStage( it, output );
-		if( !flag ) {
-			it = mStages.end();
+	if( flag ) {
+		for( it = mStages.begin(); it != mStages.end(); ++it ) {
+			flag = flag && isParallelStage( it, output );
+			if( !flag ) {
+				it = mStages.end();
+			}
 		}
 	}
 
 	return flag;
 }
 
-bool Variant::isLongStage( const Stage& stage, const std::string& output ) {
-	return ( getStageFragment( stage, output ).length() > ( stage -> stageAlphabet.length() ) );
-}
+std::string Variant::getOutput() {
+	std::string buf;
+	int rnd;
 
+	switch( VRNT ) {
+	case DEMO_VRNT:
+		srand( ctime ( 0 ) );
+		rnd = rand() % 2;	// Чётное-нечетное - 2 варианта
+		switch( rnd ) {
+		case 0:
+			buf.assign( "aaacfdbdefbbdbkgmmhkmmbnbnpppp" );
+			break;
+		default:
+			buf.assign( "aaacfdbdefbbdbkgmmhkmmbnbnnpppp" );
+		}
+		break;
+	default:
+		buf.assign( VARIANT( VRNT ) );
+		break;
+	}
+
+	return buf;
+}
 
 bool Variant::isParallelStage( const Stage& stage, const std::string& output ) {
 	std::string sf( getStageFragment( stage, output ) );	// Stage Fragment
@@ -105,10 +146,16 @@ bool Variant::isParallelStage( const Stage& stage, const std::string& output ) {
 					i = sfp + counter;
 				}
 			}
+		} else {
+			flag = true;
 		}
 	}
 
 	return flag;
+}
+
+bool Variant::isLongOutput() {
+	return ( getOutput().length() > mAlphabet.length() );
 }
 
 bool Variant::isEstStage( char symbol, int stage ) {

@@ -1,6 +1,4 @@
 
-// TODO: Добавить обёртку для вызова варианта
-// TODO: Заменить вызов варианта на вызов обёртки
 
 #ifndef VARIANT_H
 #define VARIANT_H
@@ -9,6 +7,12 @@
 #define STRING_H
 #include <string>
 #endif // STRING_H
+
+#ifndef  CTIME_H
+#define CTIME_H
+#include <ctime>
+#endif /* end of include guard: CTIME_H */
+
 
 #ifndef ALGORITHM_H
 #define ALGORITHM_H
@@ -19,6 +23,12 @@
 
 class Variant {
 public:
+	struct Stage {
+		const std::string stageAlphabet;
+		const int stage;
+		Stage( std::string arcsVal, int stageVal);
+	};
+
 	/**
 	 * Проверяет, нарушен ли порядок следования дуг.
 	 */
@@ -47,9 +57,9 @@ public:
 
 	Variant( int variant );
 
-	// TODO: Реализовать эти два конструктора
 	/**
-	 * Демо-версия
+	 * Демо, граф №1, вариант 1
+	 * Граф: https://github.com/sleeplynerd/lab3-tester/blob/master/demo%20picture/1.png?raw=true
 	 */
 	Variant();
 
@@ -58,28 +68,15 @@ public:
 	 * @param alphabet Алфавит
 	 * @param stages   Список очередей
 	 */
-	Variant( const std::string& alphabet, const std::list<Stage>& stages );
-
-	struct Stage {
-		const std::string stageAlphabet;
-		const int stage;
-		Stage( std::string arcsVal, int stageVal);
-	};
+	Variant( const std::string& alphabet,
+		const std::list<Stage>& stages,
+		const int& variant );
 
 private:
-	/**
-	 * Адрес директории с файлами
-	 */
 	static const std::string STG_LIST_DIR( "@STG_LIST_DIR@");
-	/**
-	 * Префикс для файлов
-	 */
 	static const std::string STG_LIST_PFX( "@STG_LIST_PFX@" );
+	static const int DEMO_VRNT = -1;
 	const int VRNT;
-	std::list<Stage> mStages;
-	/**
-	 * Алфавит вывода
-	 */
 	std::string mAlphabet;
 
 	std::string getOutput();
@@ -90,12 +87,8 @@ private:
 	 * @param  stage  Номер очереди
 	 */
 	bool isEstStage( char symbol, int stage );
-	/**
-	 * Проверка длины очереди
-	 * @param  stage  Объект очереди
-	 * @param  output Весь вывод
-	 */
-	bool isLongStage( const Stage& stage, const std::string& output );
+
+
 	/**
 	 * Проверка на то, что предполагаемый фрагмент вывода демонстрирует
 	 *   демонстрирует параллельное выполнение
@@ -103,6 +96,18 @@ private:
 	 * @param  output Весь вывод
 	 */
 	bool isParallelStage( const Stage& stage, const std::string& output );
+
+
+	/**
+	 * Проверяет, что длина вывода больше длины алфавита.
+	 *   Продемонстрировать параллельное выполнение можно в том случае,
+	 *   если длина дуг соответствует количеству появляющихся в выводе
+	 *   литер потоков. В этом случае длина вывода должна быть больше длины
+	 *   алфавита.
+	 * @return true, если длина вывода больше длины алфавита
+	 */
+	inline bool isLongOutput();
+
 	/**
 	 * Получить фрагмент очереди из всего вывода.
 	 * @param  stage  Объект очереди
