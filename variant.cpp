@@ -1,6 +1,8 @@
 #include "variant.h"
 
 Variant::Variant( int variant ) : VRNT( variant ) {
+	static const std::string STG_LIST_DIR( "@STG_LIST_DIR@" );
+	static const std::string STG_LIST_PFX( "@STG_LIST_PFX@" );
 	std::string buf;
 	std::string filePath( STG_LIST_DIR + "/" + STG_LIST_PFX + std::to_string( VRNT ) );
 	std::fstream file( filePath );
@@ -31,9 +33,9 @@ Variant::Variant( const std::string& alphabet,
 	mAlphabet.assign( alphabet );
 	mStages.assign( stages.begin(), stages.end() );
 
-	}
+}
 
-Variant::Stage( std::string stageAlphabet, int stageVal) : stageAlphabet( arcsVal ), stage( stageVal ) {}
+Variant::Stage::Stage( std::string alphVal, int stageVal) : stageAlphabet( alphVal ), stage( stageVal ) {}
 
 bool Variant::isOrdered() {
 	std::string buf( getOutput() );

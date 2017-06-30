@@ -8,6 +8,16 @@
 #include <string>
 #endif // STRING_H
 
+#ifndef LIST_H
+#define LIST_H
+#include <list>
+#endif /* end of include guard: LIST_H */
+
+#ifndef FSTREAM_H
+#define FSTREAM_H
+#include <fstream>
+#endif /* end of include guard: FSTREAM_H */
+
 #ifndef  CTIME_H
 #define CTIME_H
 #include <ctime>
@@ -19,7 +29,29 @@
 #include <algorithm>
 #endif
 
-#define VARIANT(vrnt) variant##vrnt##(##)
+#define VARIANT(vrnt) std##:##:##string variant ## vrnt ## ( ## )
+
+std::string& variant( int vrnt );
+std::string variant1();
+std::string variant2();
+std::string variant3();
+std::string variant4();
+std::string variant5();
+std::string variant6();
+std::string variant7();
+std::string variant8();
+std::string variant9();
+std::string variant10();
+std::string variant11();
+std::string variant12();
+std::string variant13();
+std::string variant14();
+std::string variant15();
+std::string variant16();
+std::string variant17();
+std::string variant18();
+std::string variant19();
+std::string variant20();
 
 class Variant {
 public:
@@ -73,12 +105,11 @@ public:
 		const int& variant );
 
 private:
-	static const std::string STG_LIST_DIR( "@STG_LIST_DIR@");
-	static const std::string STG_LIST_PFX( "@STG_LIST_PFX@" );
+
 	static const int DEMO_VRNT = -1;
 	const int VRNT;
 	std::string mAlphabet;
-
+	std::list<Stage> mStages;
 	std::string getOutput();
 
 	/**
@@ -106,7 +137,7 @@ private:
 	 *   алфавита.
 	 * @return true, если длина вывода больше длины алфавита
 	 */
-	inline bool isLongOutput();
+	bool isLongOutput();
 
 	/**
 	 * Получить фрагмент очереди из всего вывода.
