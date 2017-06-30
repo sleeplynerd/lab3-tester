@@ -1,13 +1,13 @@
 #include "variant.h"
 
-// TODO: проверить функции на предмет того, возвращают ли они результат #sdff
-
 Variant::Variant( int variant ) : VRNT( variant ) {
 	std::string buf;
 	std::string filePath( STG_LIST_DIR + "/" + STG_LIST_PFX + std::to_string( VRNT ) );
 	std::fstream file( filePath );
 
-	std::getline( file, mAlphabet );					// Первая строка - список дуг
+	// Первая строка файла - список дуг
+	std::getline( file, mAlphabet );
+	// Последующие строки - список очередей.
 	for( int i = 0; std::getline( file, buf ); i++) {
 		mStages.push_back( Stage( buf, i ) );			// Заполняем список очередей
 	}
@@ -39,7 +39,7 @@ bool Variant::isRandom() {
 
 	for( int i = 0; i < N_LAUNCHES; i++ ) {
 		if( buf.compare( VARIANT( VRNT ) ) != 0 ) {
-			flag = true;		// При первом несовпадении считаем, что выполнение случайно
+			flag = true;
 			//i = N_LAUNCHES;
 			break;
 		}
@@ -77,7 +77,7 @@ bool Variant::isParallel() {
 }
 
 bool Variant::isLongStage( const Stage& stage, const std::string& output ) {
-	return ( getStageFragment( stage, output ).length() > ( stage -> stageAlphabet ).length() );
+	return ( getStageFragment( stage, output ).length() > ( stage -> stageAlphabet.length() ) );
 }
 
 

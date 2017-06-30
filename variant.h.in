@@ -1,9 +1,6 @@
-/*!
-   \file "Filename"
-   \brief "Description"
-   \author "Your name"
-   \date "DD"/"Month"/"Year"
-*/
+
+// TODO: Добавить обёртку для вызова варианта
+// TODO: Заменить вызов варианта на вызов обёртки
 
 #ifndef VARIANT_H
 #define VARIANT_H
@@ -26,41 +23,92 @@ public:
 	 * Проверяет, нарушен ли порядок следования дуг.
 	 */
 	bool isOrdered();
+
 	/**
 	 * Проверяет, случайны ли результаты выполнения программы
 	 */
 	bool isRandom();
+
 	/**
 	 * Проверяет, что все дуги графа задействованы
 	 */
 	bool isFull();
+
 	/**
 	 * Проверяет, что предполагаемое параллельное выполнение не выглядит
 	 * последовательным (AAABBB) вместо (ABBABA)
 	 */
 	bool isParallel();
+
 	/**
-	 *
+	 * Заполнение списка mStages из файла
 	 * @param variant Номер варианта
 	 */
+
 	Variant( int variant );
 
-private:
+	// TODO: Реализовать эти два конструктора
+	/**
+	 * Демо-версия
+	 */
+	Variant();
+
+	/**
+	 * Алфавит и список очередей задаётся пользователем самостоятельно
+	 * @param alphabet Алфавит
+	 * @param stages   Список очередей
+	 */
+	Variant( const std::string& alphabet, const std::list<Stage>& stages );
+
 	struct Stage {
 		const std::string stageAlphabet;
 		const int stage;
 		Stage( std::string arcsVal, int stageVal);
 	};
 
+private:
+	/**
+	 * Адрес директории с файлами
+	 */
 	static const std::string STG_LIST_DIR( "@STG_LIST_DIR@");
+	/**
+	 * Префикс для файлов
+	 */
 	static const std::string STG_LIST_PFX( "@STG_LIST_PFX@" );
 	const int VRNT;
 	std::list<Stage> mStages;
+	/**
+	 * Алфавит вывода
+	 */
 	std::string mAlphabet;
 
+	std::string getOutput();
+
+	/**
+	 * Проверка на то, принадлежит ли символ предполагаемой очереди
+	 * @param  symbol Символ
+	 * @param  stage  Номер очереди
+	 */
 	bool isEstStage( char symbol, int stage );
-	bool isLongStage( const Stage& stage, const std::string& output )
+	/**
+	 * Проверка длины очереди
+	 * @param  stage  Объект очереди
+	 * @param  output Весь вывод
+	 */
+	bool isLongStage( const Stage& stage, const std::string& output );
+	/**
+	 * Проверка на то, что предполагаемый фрагмент вывода демонстрирует
+	 *   демонстрирует параллельное выполнение
+	 * @param  stage  Объект очереди
+	 * @param  output Весь вывод
+	 */
 	bool isParallelStage( const Stage& stage, const std::string& output );
+	/**
+	 * Получить фрагмент очереди из всего вывода.
+	 * @param  stage  Объект очереди
+	 * @param  output Весь вывод
+	 * @return        Отрезок вывода, соответствующий заданной очереди
+	 */
 	std::string getStageFragment( const Stage& stage, const std::string& output );
 };
 #endif //VARIANT_H
