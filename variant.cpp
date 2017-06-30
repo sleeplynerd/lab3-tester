@@ -1,8 +1,73 @@
 #include "variant.h"
 
+std::string& variant( int vrnt ) {
+	switch( vrnt ) {
+	case 1:
+		return variant1();
+		break;
+	case 2:
+		return variant2();
+		break;
+	case 3:
+		return variant3();
+		break;
+	case 4:
+		return variant4();
+		break;
+	case 5:
+		return variant5();
+		break;
+	case 6:
+		return variant6();
+		break;
+	case 7:
+		return variant7();
+		break;
+	case 8:
+		return variant8();
+		break;
+	case 9:
+		return variant9();
+		break;
+	case 10:
+		return variant10();
+		break;
+	case 11:
+		return variant11();
+		break;
+	case 12:
+		return variant12();
+		break;
+	case 13:
+		return variant13();
+		break;
+	case 14:
+		return variant14();
+		break;
+	case 15:
+		return variant15();
+		break;
+	case 16:
+		return variant16();
+		break;
+	case 17:
+		return variant17();
+		break;
+	case 18:
+		return variant18();
+		break;
+	case 19:
+		return variant19();
+		break;
+	case 20:
+		return variant20();
+		break;
+	}
+}
+
 Variant::Variant( int variant ) : VRNT( variant ) {
-	static const std::string STG_LIST_DIR( "@STG_LIST_DIR@" );
-	static const std::string STG_LIST_PFX( "@STG_LIST_PFX@" );
+	const std::string STG_LIST_DIR( "@STG_LIST_DIR@" );
+	const std::string STG_LIST_PFX( "@STG_LIST_PFX@" );
 	std::string buf;
 	std::string filePath( STG_LIST_DIR + "/" + STG_LIST_PFX + std::to_string( VRNT ) );
 	std::fstream file( filePath );
@@ -90,7 +155,7 @@ bool Variant::isParallel() {
 
 	if( flag ) {
 		for( it = mStages.begin(); it != mStages.end(); ++it ) {
-			flag = flag && isParallelStage( it, output );
+			flag = flag && isParallelStage( *it, output );
 			if( !flag ) {
 				it = mStages.end();
 			}
@@ -106,7 +171,7 @@ std::string Variant::getOutput() {
 
 	switch( VRNT ) {
 	case DEMO_VRNT:
-		srand( ctime ( 0 ) );
+		srand( time ( 0 ) );
 		rnd = rand() % 2;	// Чётное-нечетное - 2 варианта
 		switch( rnd ) {
 		case 0:
@@ -117,7 +182,8 @@ std::string Variant::getOutput() {
 		}
 		break;
 	default:
-		buf.assign( VARIANT( VRNT ) );
+		// TODO: !!!! HARDCODE!
+		buf.assign( variant( VRNT ) );
 		break;
 	}
 
@@ -126,7 +192,7 @@ std::string Variant::getOutput() {
 
 bool Variant::isParallelStage( const Stage& stage, const std::string& output ) {
 	std::string sf( getStageFragment( stage, output ) );	// Stage Fragment
-	std::string sa( stage -> stageAlphabet );				// Stage Alphabet
+	std::string sa( stage.stageAlphabet );				// Stage Alphabet
 	int sfp = 0;											// Stage Fragment Position
 	int sap = 0;											// Stage Alphabet Position
 	int counter;
@@ -165,7 +231,7 @@ bool Variant::isEstStage( char symbol, int stage ) {
 
 	for( std::list<Stage>::iterator it = mStages.begin(); it != mStages.end(); ++it ) {
 		if( it -> stage == stage ) {
-			if( it -> arcs.find( symbol ) != std::string::npos ) {
+			if( it -> stageAlphabet.find( symbol ) != std::string::npos ) {
 				flag = true;
 			}
 			break;
@@ -180,12 +246,12 @@ std::string Variant::getStageFragment( const Stage& stage, const std::string& ou
 	int i = 0;
 
 	// Ищем позицию начала очереди
-	while( !isEstStage( output[i], stage -> stage ) && ( i < output.length() ) ) {
+	while( !isEstStage( output[i], stage.stage ) && ( i < output.length() ) ) {
 		i++;
 	}
 	// Копируем элементы, принадлежащие данной очереди
-	while( isEstStage( output[i], stage -> stage ) && ( i < output.length() ) ) {
-		buf.append( output[i] );
+	while( isEstStage( output[i], stage.stage ) && ( i < output.length() ) ) {
+		buf.append( 1, output[i] );
 		i++;
 	}
 
