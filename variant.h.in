@@ -31,34 +31,35 @@
 
 #define VARIANT(vrnt) std##:##:##string variant ## vrnt ## ( ## )
 
-std::string& variant( int vrnt );
-std::string variant1();
-std::string variant2();
-std::string variant3();
-std::string variant4();
-std::string variant5();
-std::string variant6();
-std::string variant7();
-std::string variant8();
-std::string variant9();
-std::string variant10();
-std::string variant11();
-std::string variant12();
-std::string variant13();
-std::string variant14();
-std::string variant15();
-std::string variant16();
-std::string variant17();
-std::string variant18();
-std::string variant19();
-std::string variant20();
+std::string variant( int vrnt );
+//std::string variant1();
+//std::string variant2();
+//std::string variant3();
+//std::string variant4();
+//std::string variant5();
+//std::string variant6();
+//std::string variant7();
+//std::string variant8();
+//std::string variant9();
+//std::string variant10();
+//std::string variant11();
+//std::string variant12();
+//std::string variant13();
+//std::string variant14();
+//std::string variant15();
+//std::string variant16();
+//std::string variant17();
+//std::string variant18();
+//std::string variant19();
+//std::string variant20();
 
 class Variant {
 public:
 	struct Stage {
-		const std::string stageAlphabet;
-		const int stage;
+		std::string stageAlphabet;
+		int stage;
 		Stage( std::string arcsVal, int stageVal);
+		Stage& operator=( const Stage& );
 	};
 
 	/**
@@ -95,14 +96,6 @@ public:
 	 */
 	Variant();
 
-	/**
-	 * Алфавит и список очередей задаётся пользователем самостоятельно
-	 * @param alphabet Алфавит
-	 * @param stages   Список очередей
-	 */
-	Variant( const std::string& alphabet,
-		const std::list<Stage>& stages,
-		const int& variant );
 
 private:
 
@@ -118,15 +111,6 @@ private:
 	 * @param  stage  Номер очереди
 	 */
 	bool isEstStage( char symbol, int stage );
-
-
-	/**
-	 * Проверка на то, что предполагаемый фрагмент вывода демонстрирует
-	 *   демонстрирует параллельное выполнение
-	 * @param  stage  Объект очереди
-	 * @param  output Весь вывод
-	 */
-	bool isParallelStage( const Stage& stage, const std::string& output );
 
 
 	/**

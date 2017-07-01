@@ -1,68 +1,70 @@
 #include "variant.h"
 
-std::string& variant( int vrnt ) {
-	switch( vrnt ) {
-	case 1:
-		return variant1();
-		break;
-	case 2:
-		return variant2();
-		break;
-	case 3:
-		return variant3();
-		break;
-	case 4:
-		return variant4();
-		break;
-	case 5:
-		return variant5();
-		break;
-	case 6:
-		return variant6();
-		break;
-	case 7:
-		return variant7();
-		break;
-	case 8:
-		return variant8();
-		break;
-	case 9:
-		return variant9();
-		break;
-	case 10:
-		return variant10();
-		break;
-	case 11:
-		return variant11();
-		break;
-	case 12:
-		return variant12();
-		break;
-	case 13:
-		return variant13();
-		break;
-	case 14:
-		return variant14();
-		break;
-	case 15:
-		return variant15();
-		break;
-	case 16:
-		return variant16();
-		break;
-	case 17:
-		return variant17();
-		break;
-	case 18:
-		return variant18();
-		break;
-	case 19:
-		return variant19();
-		break;
-	case 20:
-		return variant20();
-		break;
-	}
+std::string variant( int vrnt ) {
+	//switch( vrnt ) {
+	//case 1:
+	//	return variant1();
+	//	break;
+	//case 2:
+	//	return variant2();
+	//	break;
+	//case 3:
+	//	return variant3();
+	//	break;
+	//case 4:
+	//	return variant4();
+	//	break;
+	//case 5:
+	//	return variant5();
+	//	break;
+	//case 6:
+	//	return variant6();
+	//	break;
+	//case 7:
+	//	return variant7();
+	//	break;
+	//case 8:
+	//	return variant8();
+	//	break;
+	//case 9:
+	//	return variant9();
+	//	break;
+	//case 10:
+	//	return variant10();
+	//	break;
+	//case 11:
+	//	return variant11();
+	//	break;
+	//case 12:
+	//	return variant12();
+	//	break;
+	//case 13:
+	//	return variant13();
+	//	break;
+	//case 14:
+	//	return variant14();
+	//	break;
+	//case 15:
+	//	return variant15();
+	//	break;
+	//case 16:
+	//	return variant16();
+	//	break;
+	//case 17:
+	//	return variant17();
+	//	break;
+	//case 18:
+	//	return variant18();
+	//	break;
+	//case 19:
+	//	return variant19();
+	//	break;
+	//case 20:
+	//	return variant20();
+	//	break;
+	//}
+
+	return "";
 }
 
 Variant::Variant( int variant ) : VRNT( variant ) {
@@ -91,16 +93,14 @@ Variant::Variant() : VRNT( DEMO_VRNT ) {
 	mStages.push_back( Stage( "p", 6 ) );
 }
 
-Variant::Variant( const std::string& alphabet,
-	const std::list<Stage>& stages,
-	const int& variant ) : VRNT( variant ) {
-
-	mAlphabet.assign( alphabet );
-	mStages.assign( stages.begin(), stages.end() );
-
-}
 
 Variant::Stage::Stage( std::string alphVal, int stageVal) : stageAlphabet( alphVal ), stage( stageVal ) {}
+
+Variant::Stage& Variant::Stage::operator=( const Variant::Stage& rhs) {
+	this -> stage = rhs.stage;
+	this -> stageAlphabet.assign( rhs.stageAlphabet );
+	return *this;
+}
 
 bool Variant::isOrdered() {
 	std::string buf( getOutput() );
@@ -150,19 +150,35 @@ bool Variant::isFull() {
 
 bool Variant::isParallel() {
 	const std::string output( getOutput() );
-	std::list<Stage>::iterator it;
-	bool flag = isLongOutput();
+	int apos = 0;	// Alphabet position
+	int opos = 0;	// Output position
+	int counter = 0;// Symbols counter
+	bool flag;
+
+	// 1. Для каждого варианта предусмотрено как минимум два
+	//   параллельно выполняемых потока. В этом случае должна
+	//   быть как минимум одна прерываемая цепь символов (AAAxxx -> AAxxAx).
+
+	flag = isLongOutput();
+
+	// 2. Т.к. для демонстрации параллельного выполнения необходимо для каждого
+	//   потока выводить более одной литеры потока, вывод (output) должен получиться
+	//   длиннее, чем алфавит варианта (mAplhabet)
 
 	if( flag ) {
-		for( it = mStages.begin(); it != mStages.end(); ++it ) {
-			flag = flag && isParallelStage( *it, output );
-			if( !flag ) {
-				it = mStages.end();
+		flag = false;
+		for( apos = 0; apos < mAlphabet.length(); ++apos ) {
+			counter = std::count( output.begin(), output.end(), mAlphabet[apos] );
+			if( counter >= 2) {
+				opos = output.find( mAlphabet[apos] );
+				for( int i = opos + 1; i < opos + counter; ++i) {
+					if( output[i] != output[opos] ) {
+						return true;
+					}
+				}
 			}
 		}
 	}
-
-	return flag;
 }
 
 std::string Variant::getOutput() {
@@ -175,7 +191,7 @@ std::string Variant::getOutput() {
 		rnd = rand() % 2;	// Чётное-нечетное - 2 варианта
 		switch( rnd ) {
 		case 0:
-			buf.assign( "aaacfdbdefbbdbkgmmhkmmbnbnpppp" );
+			buf.assign( "paaacfdbdefbbdbkgmmhkmmbnbnpppp" );
 			break;
 		default:
 			buf.assign( "aaacfdbdefbbdbkgmmhkmmbnbnnpppp" );
@@ -190,37 +206,6 @@ std::string Variant::getOutput() {
 	return buf;
 }
 
-bool Variant::isParallelStage( const Stage& stage, const std::string& output ) {
-	std::string sf( getStageFragment( stage, output ) );	// Stage Fragment
-	std::string sa( stage.stageAlphabet );				// Stage Alphabet
-	int sfp = 0;											// Stage Fragment Position
-	int sap = 0;											// Stage Alphabet Position
-	int counter;
-	bool flag = false;
-
-	//  Обход каждого элемента "алфавита"
-	for( sap = 0; sap < sa.length(); ++sap ) {
-		counter = std::count( sf.begin(), sf.end(), sa[sap] );
-		// Появление двух и более элементов допускает их взаимные перестановки.
-		//   Проверяем, не собрались ли элементы в "цепь" (AAABBB)
-		if( counter >= 2 ) {
-			sfp = sf.find( sa[sap] );
-			// Проверяем, прерываются ли подряд идущие символы другими символами (AABA)
-			for( int i = sfp + 1; i < sfp + counter; ++i) {
-				if( sf[i] != sa[sap] ) {
-					flag = true;
-					// Выход из циклов
-					sap = sa.length();
-					i = sfp + counter;
-				}
-			}
-		} else {
-			flag = true;
-		}
-	}
-
-	return flag;
-}
 
 bool Variant::isLongOutput() {
 	return ( getOutput().length() > mAlphabet.length() );
