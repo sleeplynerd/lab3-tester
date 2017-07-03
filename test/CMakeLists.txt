@@ -1,3 +1,3 @@
-project( test )
-add_executable( test main.cpp )
-target_link_libraries( test src )
+project( tests )
+add_executable( tests main.cpp )
+target_link_libraries( tests src )
