@@ -166,7 +166,6 @@ std::string Variant::getOutput() {
 		buf.assign( "aaacfdbdefbbdbkgmmhkmmbnbnpppp" );
 		break;
 	default:
-		// TODO: !!!! HARDCODE!
 		buf.assign( variant( VRNT ) );
 		break;
 	}
