@@ -76,11 +76,6 @@ Variant::Variant() : VRNT( DEMO_VRNT ) {
 
 Variant::Stage::Stage( std::string alphVal, int stageVal) : stageAlphabet( alphVal ), stage( stageVal ) {}
 
-Variant::Stage& Variant::Stage::operator=( const Variant::Stage& rhs) {
-	this -> stage = rhs.stage;
-	this -> stageAlphabet.assign( rhs.stageAlphabet );
-	return *this;
-}
 
 bool Variant::isOrdered() {
 	std::string buf( getOutput() );
