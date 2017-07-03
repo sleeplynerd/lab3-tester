@@ -1,0 +1,3 @@
+project( VARIANTS )
+file( GLOB_RECURSE SOURCE_FILES "*.cpp")
+add_library( VARIANTS STATIC ${SOURCE_FILES})
