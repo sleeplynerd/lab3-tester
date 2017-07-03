@@ -1,70 +1,50 @@
 #include "variant.h"
 
 std::string variant( int vrnt ) {
-	//switch( vrnt ) {
-	//case 1:
-	//	return variant1();
-	//	break;
-	//case 2:
-	//	return variant2();
-	//	break;
-	//case 3:
-	//	return variant3();
-	//	break;
-	//case 4:
-	//	return variant4();
-	//	break;
-	//case 5:
-	//	return variant5();
-	//	break;
-	//case 6:
-	//	return variant6();
-	//	break;
-	//case 7:
-	//	return variant7();
-	//	break;
-	//case 8:
-	//	return variant8();
-	//	break;
-	//case 9:
-	//	return variant9();
-	//	break;
-	//case 10:
-	//	return variant10();
-	//	break;
-	//case 11:
-	//	return variant11();
-	//	break;
-	//case 12:
-	//	return variant12();
-	//	break;
-	//case 13:
-	//	return variant13();
-	//	break;
-	//case 14:
-	//	return variant14();
-	//	break;
-	//case 15:
-	//	return variant15();
-	//	break;
-	//case 16:
-	//	return variant16();
-	//	break;
-	//case 17:
-	//	return variant17();
-	//	break;
-	//case 18:
-	//	return variant18();
-	//	break;
-	//case 19:
-	//	return variant19();
-	//	break;
-	//case 20:
-	//	return variant20();
-	//	break;
-	//}
+	switch( vrnt ) {
+	case 1:
+		return VARIANT_1();
+	case 2:
+		return VARIANT_2();
+	case 3:
+		return VARIANT_3();
+	case 4:
+		return VARIANT_4();
+	case 5:
+		return VARIANT_5();
+	case 6:
+		return VARIANT_6();
+	case 7:
+		return VARIANT_7();
+	case 8:
+		return VARIANT_8();
+	case 9:
+		return VARIANT_9();
+	case 10:
+		return VARIANT_10();
+	case 11:
+		return VARIANT_11();
+	case 12:
+		return VARIANT_12();
+	case 13:
+		return VARIANT_13();
+	case 14:
+		return VARIANT_14();
+	case 15:
+		return VARIANT_15();
+	case 16:
+		return VARIANT_16();
+	case 17:
+		return VARIANT_17();
+	case 18:
+		return VARIANT_18();
+	case 19:
+		return VARIANT_19();
+	case 20:
+		return VARIANT_20();
+	}
 
-	return "";
+	return mock();
 }
 
 Variant::Variant( int variant ) : VRNT( variant ) {
@@ -155,15 +135,15 @@ bool Variant::isParallel() {
 	int counter = 0;// Symbols counter
 	bool flag;
 
-	// 1. Для каждого варианта предусмотрено как минимум два
-	//   параллельно выполняемых потока. В этом случае должна
-	//   быть как минимум одна прерываемая цепь символов (AAAxxx -> AAxxAx).
+	// 1. Т.к. для демонстрации параллельного выполнения необходимо для каждого
+	//   потока выводить более одной литеры потока, вывод (output) должен получиться
+	//   длиннее, чем алфавит варианта (mAplhabet)
 
 	flag = isLongOutput();
 
-	// 2. Т.к. для демонстрации параллельного выполнения необходимо для каждого
-	//   потока выводить более одной литеры потока, вывод (output) должен получиться
-	//   длиннее, чем алфавит варианта (mAplhabet)
+	// 2. Для каждого варианта предусмотрено как минимум два
+	//   параллельно выполняемых потока. В этом случае должна
+	//   быть как минимум одна прерываемая цепь символов (AAAxxx -> AAxxAx).
 
 	if( flag ) {
 		flag = false;
@@ -179,23 +159,16 @@ bool Variant::isParallel() {
 			}
 		}
 	}
+
+	return flag;
 }
 
 std::string Variant::getOutput() {
 	std::string buf;
-	int rnd;
 
 	switch( VRNT ) {
 	case DEMO_VRNT:
-		srand( time ( 0 ) );
-		rnd = rand() % 2;	// Чётное-нечетное - 2 варианта
-		switch( rnd ) {
-		case 0:
-			buf.assign( "paaacfdbdefbbdbkgmmhkmmbnbnpppp" );
-			break;
-		default:
-			buf.assign( "aaacfdbdefbbdbkgmmhkmmbnbnnpppp" );
-		}
+		buf.assign( "aaacfdbdefbbdbkgmmhkmmbnbnpppp" );
 		break;
 	default:
 		// TODO: !!!! HARDCODE!
