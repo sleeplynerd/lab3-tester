@@ -111,5 +111,8 @@ configure_file(
 	variant.h)
 
 include_directories( ${PROJECT_SOURCE_DIR}/src )
+file( GLOB_RECURSE SOURCE_VARIANTS "${PROJECT_SOURCE_DIR}/../test/*.cpp" )
 add_library( src variant.cpp variant.h )
-target_link_libraries( src VARIANTS )
+if( EXISTS SOURCE_VARIANTS)
+	target_link_libraries( src VARIANTS )
+endif()
