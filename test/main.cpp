@@ -4,7 +4,7 @@
 #define IOSTREAM_H
 #include <iostream>
 #endif /* end of include guard: IOSTREAM_H */
-
+//
 
 int main() {
     Variant v1;
