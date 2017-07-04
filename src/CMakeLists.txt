@@ -1,6 +1,6 @@
 project( src )
 
-set( STG_LIST_DIR ${PROJECT_SOURCE_DIR}/variants_descriptions )
+set( STG_LIST_DIR ${PROJECT_SOURCE_DIR}/../variants_descriptions )
 set( STG_LIST_PFX VARIANT_)
 
 
