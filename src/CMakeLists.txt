@@ -112,7 +112,7 @@ configure_file(
 
 #include_directories( ${PROJECT_SOURCE_DIR} )
 include_directories( ${PROJECT_BINARY_DIR} )
-file( GLOB_RECURSE SOURCE_VARIANTS "${PROJECT_SOURCE_DIR}/../test/*.cpp" )
+file( GLOB_RECURSE SOURCE_VARIANTS "${PROJECT_SOURCE_DIR}/../VARIANTS/*.cpp" )
 add_library( src variant.cpp variant.h )
 if( EXISTS SOURCE_VARIANTS)
 	message( "SRC: All the files has been found" )
