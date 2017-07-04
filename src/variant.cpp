@@ -48,8 +48,8 @@ std::string variant( int vrnt ) {
 }
 
 Variant::Variant( int variant ) : VRNT( variant ) {
-	const std::string STG_LIST_DIR( "@STG_LIST_DIR@" );
-	const std::string STG_LIST_PFX( "@STG_LIST_PFX@" );
+	const std::string STG_LIST_DIR( STG_LIST_DIR );
+	const std::string STG_LIST_PFX( STG_LIST_PFX );
 	std::string buf;
 	std::string filePath( STG_LIST_DIR + "/" + STG_LIST_PFX + std::to_string( VRNT ) );
 	std::fstream file( filePath );
@@ -112,11 +112,16 @@ bool Variant::isRandom() {
 
 bool Variant::isFull() {
 	std::string result( getOutput() );
-	bool flag = true;
+	bool flag = false;
 
-	for( int i = 0; i < mAlphabet.length(); i++ ) {
-		if( result.find( mAlphabet[i] ) ==  std::string::npos) {
-			flag = false;
+	if( result.compare( "" ) != 0 )
+		flag = true;
+
+	if( flag ) {
+		for( int i = 0; i < mAlphabet.length(); i++ ) {
+			if( result.find( mAlphabet[i] ) ==  std::string::npos) {
+				flag = false;
+			}
 		}
 	}
 
