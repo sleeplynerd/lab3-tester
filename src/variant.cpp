@@ -48,8 +48,8 @@ std::string variant( int vrnt ) {
 }
 
 Variant::Variant( int variant ) : VRNT( variant ) {
-	const std::string STG_LIST_DIR( STG_LIST_DIR );
-	const std::string STG_LIST_PFX( STG_LIST_PFX );
+	//const std::string STG_LIST_DIR( STG_LIST_DIR );
+	//const std::string STG_LIST_PFX( STG_LIST_PFX );
 	std::string buf;
 	std::string filePath( STG_LIST_DIR + "/" + STG_LIST_PFX + std::to_string( VRNT ) );
 	std::fstream file( filePath );
