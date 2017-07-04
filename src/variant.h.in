@@ -29,8 +29,8 @@
 #endif
 
 // Строки, пути к файлам
-#define STG_LIST_DIR #@STG_LIST_DIR@
-#define STG_LIST_PFX #@STG_LIST_PFX@
+#define STG_LIST_DIR " ## @STG_LIST_DIR@ ## "
+#define STG_LIST_PFX " ## @STG_LIST_PFX@ ## "
 
 // CMake автоматически определит наличие или отсутствие
 //   исходного кода для соответствующего варианта, установит
