@@ -79,15 +79,21 @@ Variant::Stage::Stage( std::string alphVal, int stageVal) : stageAlphabet( alphV
 
 bool Variant::isOrdered() {
 	std::string buf( getOutput() );
-	bool flag = true;
+	//bool flag = true;
+	bool flag = false;
 	int currStage = 0;
 
-	for( int i = 0; i < buf.length(); i++ ) {
-		if( isEstStage( buf[i], currStage ) );				// Символ относится к текущей очереди
-		else if( isEstStage( buf[i], currStage + 1 ) ) {	// Символ относится к следующей очереди
-			currStage++;
-		} else {
-			flag = false;									// Порядок очередей нарушен
+	if( buf.compare( "" ) != 0 )
+		flag = true;
+
+	if( flag ) {
+		for( int i = 0; i < buf.length(); i++ ) {
+			if( isEstStage( buf[i], currStage ) );				// Символ относится к текущей очереди
+			else if( isEstStage( buf[i], currStage + 1 ) ) {	// Символ относится к следующей очереди
+				currStage++;
+			} else {
+				flag = false;									// Порядок очередей нарушен
+			}
 		}
 	}
 
