@@ -1,5 +1,5 @@
 project( VARIANTS )
-file( GLOB_RECURSE SOURCE_FILES "*.c" )
+file( GLOB_RECURSE SOURCE_FILES "*.cpp" )
 #if( EXISTS ${SOURCE_FILES} )
 if( SOURCE_FILES )
     message( "VARIANTS: All the files has been found" )
