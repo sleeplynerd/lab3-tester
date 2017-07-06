@@ -1,6 +1,7 @@
 project( VARIANTS )
 file( GLOB_RECURSE SOURCE_FILES "*.cpp" )
-if( EXISTS ${SOURCE_FILES} )
+#if( EXISTS ${SOURCE_FILES} )
+if( ${SOURCE_FILES} )
     message( "VARIANTS: All the files has been found" )
     add_library( VARIANTS STATIC ${SOURCE_FILES} )
 else()
