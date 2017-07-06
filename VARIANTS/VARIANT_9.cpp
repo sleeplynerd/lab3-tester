@@ -90,7 +90,7 @@ void msg( void* threadLetter, int length, bool isMutexSync = false ) {
 		}
 
 		//printf( "%c", ( (char*) threadLetter )[0] );
-        output.append( 1, ( (char*) threadLetter )[0] )
+        output.append( 1, ( (char*) threadLetter )[0] );
 
 		if( isMutexSync ) {
 			pthread_mutex_unlock( &mutex );
