@@ -77,7 +77,7 @@ Variant::Variant( int variant ) : VRNT( variant ) {
 
 	printLog( "Alphabet: ", mAlphabet.c_str() );
 
-	printLog( "Output: ", getOutput().c_str() )
+	printLog( "Output: ", getOutput().c_str() );
 
 }
 
