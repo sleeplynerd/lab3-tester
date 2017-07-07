@@ -109,6 +109,7 @@ bool Variant::isOrdered() {
 	int currStage = 0;
 
 	if( buf.compare( "" ) != 0 ) {
+		LOG << "Empty string, flag is false" << NLINE;
 		flag = true;
 	}
 
