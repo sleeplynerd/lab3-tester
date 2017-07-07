@@ -62,7 +62,7 @@ Variant::Variant( int variant ) : VRNT( variant ) {
 		mStages.push_back( Stage( buf, i ) );			// Заполняем список очередей
 	}
 
-	log( "Alphabet: ", mAlphabet );
+	printLog( "Alphabet: ", mAlphabet );
 
 }
 
