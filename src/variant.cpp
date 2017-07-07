@@ -125,6 +125,7 @@ bool Variant::isOrdered() {
 				LOG << "Stage: " << ( currStage + 1 ) << ", symbol: " << buf[i] << NLINE;
 				currStage++;
 			} else {
+				LOG << "Error. Flag is false." << NLINE;
 				flag = false;									// Порядок очередей нарушен
 			}
 		}
