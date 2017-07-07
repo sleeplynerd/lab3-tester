@@ -38,10 +38,6 @@ void printLog( char* prefix, char* suffix ) {
 		std::cout << suffix << std::endl;
 	}
 }
-
-void printLog( std::string prefix, std::string suffix) {
-	printLog( prefix.c_str(), suffix.c_str() );
-}
 /*****************************************************************/
 
 // Строки, пути к файлам
