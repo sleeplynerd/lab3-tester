@@ -58,7 +58,7 @@ Variant::Variant( int variant ) : VRNT( variant ) {
 	std::getline( file, mAlphabet );
 	// Последующие строки - список очередей.
 	for( int i = 0; std::getline( file, buf ); i++) {
-		log( "Stage " + i + ":", buf );
+		log( "Stage: ", buf );
 		mStages.push_back( Stage( buf, i ) );			// Заполняем список очередей
 	}
 
