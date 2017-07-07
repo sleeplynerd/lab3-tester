@@ -102,14 +102,14 @@ Variant::Stage::Stage( std::string alphVal, int stageVal) : stageAlphabet( alphV
 
 bool Variant::isOrdered() {
 	std::string buf( getOutput() );
-	LOG << "bool isOrdered()" << NLINE;
+	LOG << "bool isOrdered() ---------------------------------*" << NLINE;
 	LOG << "buf: " << buf << NLINE;
 	//bool flag = true;
 	bool flag = false;
 	int currStage = 0;
 
 	if( buf.compare( "" ) != 0 ) {
-		LOG << "buf is not an empty string, the flag is true" << NLINE;
+		//LOG << "buf is not an empty string, the flag is true" << NLINE;
 		flag = true;
 	}
 
@@ -119,13 +119,13 @@ bool Variant::isOrdered() {
 			LOG << "Symbol: " << buf[i] << NLINE;
 			if( isEstStage( buf[i], currStage ) ) {				// Символ относится к текущей очереди
 				//printLog( buf[i].c_str(), to_string( currStage ).c_str() );
-				LOG << "Stage: " << currStage << ", symbol: " << buf[i] << NLINE;
+				LOG << "Stage: " << currStage << ", symbol: " << buf[i] << NLINE << NLINE;
 			}
 			else if( isEstStage( buf[i], currStage + 1 ) ) {	// Символ относится к следующей очереди
-				LOG << "Stage: " << ( currStage + 1 ) << ", symbol: " << buf[i] << NLINE;
+				LOG << "Stage: " << ( currStage + 1 ) << ", symbol: " << buf[i] << NLINE << NLINE;
 				currStage++;
 			} else {
-				LOG << "Error. Flag is false." << NLINE;
+				LOG << "Error. Flag is false." << NLINE << NLINE;
 				flag = false;									// Порядок очередей нарушен
 			}
 		}
@@ -224,9 +224,11 @@ bool Variant::isLongOutput() {
 }
 
 bool Variant::isEstStage( char symbol, int stage ) {
+	LOG << "bool isEstStage(). Looking for " << symbol << " in stage " << stage << NLINE;
 	bool flag = false;
 
 	for( std::list<Stage>::iterator it = mStages.begin(); it != mStages.end(); ++it ) {
+		LOG << "In list:" << NLINE << it -> stageAlphabet << NLINE << it -> stage << NLINE << NLINE;
 		if( it -> stage == stage ) {
 			if( it -> stageAlphabet.find( symbol ) != std::string::npos ) {
 				flag = true;
@@ -234,6 +236,8 @@ bool Variant::isEstStage( char symbol, int stage ) {
 			break;
 		}
 	}
+
+	LOG << NLINE;
 
 	return flag;
 }
