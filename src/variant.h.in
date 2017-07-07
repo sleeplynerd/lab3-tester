@@ -29,6 +29,7 @@
 
 /**************************** Logging ****************************/
 // TODO: Remove logging
+#include <iostream>
 const bool IS_DEBUG = true;
 
 void log( char* prefix, char* suffix ) {
