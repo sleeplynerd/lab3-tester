@@ -1,0 +1,21 @@
+language: cpp
+
+sudo: false
+
+compiler:
+    - gcc
+
+
+before_script:
+    - mkdir build
+    - cd build
+    - cmake ..
+
+script: make && ./test/tests
+
+os:
+    - linux
+
+env:
+  global:
+  - LANG="en_US.UTF-8"
