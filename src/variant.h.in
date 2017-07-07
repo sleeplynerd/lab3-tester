@@ -32,7 +32,7 @@
 #include <iostream>
 const bool IS_DEBUG = true;
 
-void printLog( char* prefix, char* suffix ) {
+void printLog( const char* prefix, const char* suffix ) {
 	if( IS_DEBUG ) {
 		std::cout << prefix << std::endl;
 		std::cout << suffix << std::endl;
