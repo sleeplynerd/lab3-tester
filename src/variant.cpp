@@ -79,7 +79,7 @@ Variant::Variant( int variant ) : VRNT( variant ) {
 	}
 
 	//printLog( "Alphabet: ", mAlphabet.c_str() );
-	LOG << "Alphabet: " << mAplhabet << NLINE;
+	LOG << "Alphabet: " << mAlphabet << NLINE;
 
 	//printLog( "Output: ", getOutput().c_str() );
 	LOG << "Output: " << getOutput() << NLINE;
@@ -114,7 +114,7 @@ bool Variant::isOrdered() {
 		for( int i = 0; i < buf.length(); i++ ) {
 			if( isEstStage( buf[i], currStage ) ) {				// Символ относится к текущей очереди
 				//printLog( buf[i].c_str(), to_string( currStage ).c_str() );
-				LOG << "Stage: " << currStage << ", symbol: " << buf[i] << NLINE; 
+				LOG << "Stage: " << currStage << ", symbol: " << buf[i] << NLINE;
 			}
 			else if( isEstStage( buf[i], currStage + 1 ) ) {	// Символ относится к следующей очереди
 				currStage++;
