@@ -3,8 +3,8 @@ language: cpp
 sudo: false
 
 compiler:
-    - gcc
-
+    #- gcc
+    - clang
 
 before_script:
     - mkdir build
@@ -14,7 +14,8 @@ before_script:
 script: make && ./test/tests
 
 os:
-    - linux
+    #- linux
+    - osx
 
 env:
   global:
