@@ -77,7 +77,7 @@ std::string variant9() {
 	pthread_join( threadI, NULL );
 	pthread_join( threadK, NULL );
 
-    std::cout << output << std::endl;
+    //std::cout << output << std::endl;
 	//printf( "\n" );
 
     return output;
