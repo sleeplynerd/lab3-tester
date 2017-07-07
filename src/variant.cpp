@@ -3,14 +3,15 @@
 /**************************** Logging ****************************/
 // TODO: Remove logging
 #include <iostream>
-const bool IS_DEBUG = true;
+#define LOGGING
 
-void printLog( const char* prefix, const char* suffix ) {
-	if( IS_DEBUG ) {
-		std::cout << prefix << " ";
-		std::cout << suffix << std::endl;
-	}
-}
+#ifdef LOGGING
+	#define LOG std::cout
+	#define NLINE std::endl
+#else
+	#define LOG /##/
+	#define NLINE /##/
+#endif
 /*****************************************************************/
 
 std::string variant( int vrnt ) {
@@ -71,14 +72,17 @@ Variant::Variant( int variant ) : VRNT( variant ) {
 	std::getline( file, mAlphabet );
 	// Последующие строки - список очередей.
 	for( int i = 0; std::getline( file, buf ); i++) {
-		printLog( "Stage: ", buf.c_str() );
+		//printLog( "Stage: ", buf.c_str() );
+		LOG << "Stage " << i << ": " << buf << NLINE;
+
 		mStages.push_back( Stage( buf, i ) );			// Заполняем список очередей
 	}
 
-	printLog( "Alphabet: ", mAlphabet.c_str() );
+	//printLog( "Alphabet: ", mAlphabet.c_str() );
+	LOG << "Alphabet: " << mAplhabet << NLINE;
 
-	printLog( "Output: ", getOutput().c_str() );
-
+	//printLog( "Output: ", getOutput().c_str() );
+	LOG << "Output: " << getOutput() << NLINE;
 }
 
 Variant::Variant() : VRNT( DEMO_VRNT ) {
@@ -109,7 +113,8 @@ bool Variant::isOrdered() {
 	if( flag ) {
 		for( int i = 0; i < buf.length(); i++ ) {
 			if( isEstStage( buf[i], currStage ) ) {				// Символ относится к текущей очереди
-				printLog( buf[i].c_str(), to_string( currStage ).c_str() );
+				//printLog( buf[i].c_str(), to_string( currStage ).c_str() );
+				LOG << "Stage: " << currStage << ", symbol: " << buf[i] << NLINE; 
 			}
 			else if( isEstStage( buf[i], currStage + 1 ) ) {	// Символ относится к следующей очереди
 				currStage++;
