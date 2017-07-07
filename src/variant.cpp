@@ -122,6 +122,7 @@ bool Variant::isOrdered() {
 				LOG << "Stage: " << currStage << ", symbol: " << buf[i] << NLINE;
 			}
 			else if( isEstStage( buf[i], currStage + 1 ) ) {	// Символ относится к следующей очереди
+				LOG << "Stage: " << ( currStage + 1 ) << ", symbol: " << buf[i] << NLINE;
 				currStage++;
 			} else {
 				flag = false;									// Порядок очередей нарушен
