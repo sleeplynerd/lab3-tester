@@ -109,12 +109,14 @@ bool Variant::isOrdered() {
 	int currStage = 0;
 
 	if( buf.compare( "" ) != 0 ) {
-		LOG << "Empty string, flag is false" << NLINE;
+		LOG << "buf is not an empty string, the flag is true" << NLINE;
 		flag = true;
 	}
 
 	if( flag ) {
 		for( int i = 0; i < buf.length(); i++ ) {
+			LOG << "Current stage: " << currStage << NLINE;
+			LOG << "Symbol: " << buf[i] << NLINE;
 			if( isEstStage( buf[i], currStage ) ) {				// Символ относится к текущей очереди
 				//printLog( buf[i].c_str(), to_string( currStage ).c_str() );
 				LOG << "Stage: " << currStage << ", symbol: " << buf[i] << NLINE;
