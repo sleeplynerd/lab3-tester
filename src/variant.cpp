@@ -102,6 +102,7 @@ Variant::Stage::Stage( std::string alphVal, int stageVal) : stageAlphabet( alphV
 
 bool Variant::isOrdered() {
 	std::string buf( getOutput() );
+	LOG << "bool isOrdered()" << NLINE;
 	//bool flag = true;
 	bool flag = false;
 	int currStage = 0;
