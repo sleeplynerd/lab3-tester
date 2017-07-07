@@ -15,4 +15,6 @@ int main() {
         std::cout << "FULL" << std::endl;
     if( v1.isParallel() )
         std::cout << "PARALLEL" << std::endl;
+    if( v1.isRandom() )
+        std::cout << "RANDOM" << std::endl;
 }
