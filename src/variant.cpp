@@ -1,5 +1,18 @@
 #include "variant.h"
 
+/**************************** Logging ****************************/
+// TODO: Remove logging
+#include <iostream>
+const bool IS_DEBUG = true;
+
+void printLog( const char* prefix, const char* suffix ) {
+	if( IS_DEBUG ) {
+		std::cout << prefix << std::endl;
+		std::cout << suffix << std::endl;
+	}
+}
+/*****************************************************************/
+
 std::string variant( int vrnt ) {
 	switch( vrnt ) {
 	case 1:

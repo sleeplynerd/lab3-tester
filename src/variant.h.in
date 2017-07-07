@@ -27,19 +27,6 @@
 #endif
 
 
-/**************************** Logging ****************************/
-// TODO: Remove logging
-#include <iostream>
-const bool IS_DEBUG = true;
-
-void printLog( const char* prefix, const char* suffix ) {
-	if( IS_DEBUG ) {
-		std::cout << prefix << std::endl;
-		std::cout << suffix << std::endl;
-	}
-}
-/*****************************************************************/
-
 // Строки, пути к файлам
 #define STG_LIST_DIR "@STG_LIST_DIR@"
 #define STG_LIST_PFX "@STG_LIST_PFX@"
