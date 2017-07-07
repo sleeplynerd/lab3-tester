@@ -109,7 +109,7 @@ bool Variant::isOrdered() {
 	if( flag ) {
 		for( int i = 0; i < buf.length(); i++ ) {
 			if( isEstStage( buf[i], currStage ) ) {				// Символ относится к текущей очереди
-				printLog( buf[i].c_str(), to_string( currStage ).c_str() )
+				printLog( buf[i].c_str(), to_string( currStage ).c_str() );
 			}
 			else if( isEstStage( buf[i], currStage + 1 ) ) {	// Символ относится к следующей очереди
 				currStage++;
