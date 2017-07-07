@@ -58,11 +58,11 @@ Variant::Variant( int variant ) : VRNT( variant ) {
 	std::getline( file, mAlphabet );
 	// Последующие строки - список очередей.
 	for( int i = 0; std::getline( file, buf ); i++) {
-		printLog( "Stage: ", buf );
+		printLog( "Stage: ", buf.c_str() );
 		mStages.push_back( Stage( buf, i ) );			// Заполняем список очередей
 	}
 
-	printLog( "Alphabet: ", mAlphabet );
+	printLog( "Alphabet: ", mAlphabet.c_str() );
 
 }
 
