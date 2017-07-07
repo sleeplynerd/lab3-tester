@@ -102,7 +102,7 @@ bool Variant::isOrdered() {
 	bool flag = false;
 	int currStage = 0;
 
-	if( buf.compare( "" ) != 0 ) {}
+	if( buf.compare( "" ) != 0 ) {
 		flag = true;
 	}
 
