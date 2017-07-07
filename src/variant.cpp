@@ -231,6 +231,7 @@ bool Variant::isEstStage( char symbol, int stage ) {
 		LOG << "In list:" << NLINE << it -> stageAlphabet << NLINE << it -> stage << NLINE << NLINE;
 		if( it -> stage == stage ) {
 			if( it -> stageAlphabet.find( symbol ) != std::string::npos ) {
+				LOG << "Successful! " << NLINE;
 				flag = true;
 			}
 			break;
