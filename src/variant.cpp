@@ -6,7 +6,7 @@
 #define LOGGING
 
 #ifdef LOGGING
-	#define LOG std::cout
+	#define LOG std::cout << "----"
 	#define NLINE std::endl
 #else
 	#define LOG /##/
@@ -103,6 +103,7 @@ Variant::Stage::Stage( std::string alphVal, int stageVal) : stageAlphabet( alphV
 bool Variant::isOrdered() {
 	std::string buf( getOutput() );
 	LOG << "bool isOrdered()" << NLINE;
+	LOG << "buf: " << buf << NLINE;
 	//bool flag = true;
 	bool flag = false;
 	int currStage = 0;
