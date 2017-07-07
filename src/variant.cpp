@@ -3,15 +3,9 @@
 /**************************** Logging ****************************/
 // TODO: Remove logging
 #include <iostream>
-#define LOGGING
 
-#ifdef LOGGING
-	#define LOG std::cout << "----"
-	#define NLINE std::endl
-#else
-	#define LOG /##/
-	#define NLINE /##/
-#endif
+#define // LOG std::cout << "----"
+#define NLINE std::endl
 /*****************************************************************/
 
 std::string variant( int vrnt ) {
@@ -73,16 +67,16 @@ Variant::Variant( int variant ) : VRNT( variant ) {
 	// Последующие строки - список очередей.
 	for( int i = 0; std::getline( file, buf ); i++) {
 		//printLog( "Stage: ", buf.c_str() );
-		LOG << "Stage " << i << ": " << buf << NLINE;
+		// LOG << "Stage " << i << ": " << buf << NLINE;
 
 		mStages.push_back( Stage( buf, i ) );			// Заполняем список очередей
 	}
 
 	//printLog( "Alphabet: ", mAlphabet.c_str() );
-	LOG << "Alphabet: " << mAlphabet << NLINE;
+	// LOG << "Alphabet: " << mAlphabet << NLINE;
 
 	//printLog( "Output: ", getOutput().c_str() );
-	LOG << "Output: " << getOutput() << NLINE;
+	// LOG << "Output: " << getOutput() << NLINE;
 }
 
 Variant::Variant() : VRNT( DEMO_VRNT ) {
@@ -102,30 +96,30 @@ Variant::Stage::Stage( std::string alphVal, int stageVal) : stageAlphabet( alphV
 
 bool Variant::isOrdered() {
 	std::string buf( getOutput() );
-	LOG << "bool isOrdered() ---------------------------------*" << NLINE;
-	LOG << "buf: " << buf << NLINE;
+	// LOG << "bool isOrdered() ---------------------------------*" << NLINE;
+	// LOG << "buf: " << buf << NLINE;
 	//bool flag = true;
 	bool flag = false;
 	int currStage = 0;
 
 	if( buf.compare( "" ) != 0 ) {
-		//LOG << "buf is not an empty string, the flag is true" << NLINE;
+		//// LOG << "buf is not an empty string, the flag is true" << NLINE;
 		flag = true;
 	}
 
 	if( flag ) {
 		for( int i = 0; i < buf.length(); i++ ) {
-			LOG << "Current stage: " << currStage << NLINE;
-			LOG << "Symbol: " << buf[i] << NLINE;
+			// LOG << "Current stage: " << currStage << NLINE;
+			// LOG << "Symbol: " << buf[i] << NLINE;
 			if( isEstStage( buf[i], currStage ) ) {				// Символ относится к текущей очереди
 				//printLog( buf[i].c_str(), to_string( currStage ).c_str() );
-				LOG << "Stage: " << currStage << ", symbol: " << buf[i] << NLINE << NLINE;
+				// LOG << "Stage: " << currStage << ", symbol: " << buf[i] << NLINE << NLINE;
 			}
 			else if( isEstStage( buf[i], currStage + 1 ) ) {	// Символ относится к следующей очереди
-				LOG << "Stage: " << ( currStage + 1 ) << ", symbol: " << buf[i] << NLINE << NLINE;
+				// LOG << "Stage: " << ( currStage + 1 ) << ", symbol: " << buf[i] << NLINE << NLINE;
 				currStage++;
 			} else {
-				LOG << "Error. Flag is false." << NLINE << NLINE;
+				// LOG << "Error. Flag is false." << NLINE << NLINE;
 				flag = false;									// Порядок очередей нарушен
 			}
 		}
@@ -215,6 +209,7 @@ std::string Variant::getOutput() {
 		break;
 	}
 
+	std::transform( buf.begin(), buf.end(), buf.begin(), ::tolower );
 	return buf;
 }
 
@@ -224,21 +219,21 @@ bool Variant::isLongOutput() {
 }
 
 bool Variant::isEstStage( char symbol, int stage ) {
-	LOG << "bool isEstStage(). Looking for " << symbol << " in stage " << stage << NLINE;
+	// LOG << "bool isEstStage(). Looking for " << symbol << " in stage " << stage << NLINE;
 	bool flag = false;
 
 	for( std::list<Stage>::iterator it = mStages.begin(); it != mStages.end(); ++it ) {
-		LOG << "In list:" << NLINE << it -> stageAlphabet << NLINE << it -> stage << NLINE << NLINE;
+		// LOG << "In list:" << NLINE << it -> stageAlphabet << NLINE << it -> stage << NLINE << NLINE;
 		if( it -> stage == stage ) {
 			if( it -> stageAlphabet.find( symbol ) != std::string::npos ) {
-				LOG << "Successful! " << NLINE;
+				// LOG << "Successful! " << NLINE;
 				flag = true;
 			}
 			break;
 		}
 	}
 
-	LOG << NLINE;
+	// LOG << NLINE;
 
 	return flag;
 }

@@ -12,7 +12,7 @@ int main() {
     if( v1.isOrdered() )
         std::cout << "ORDERED" << std::endl;
     if( v1.isFull() )
-        std::cout << "IS FULL" << std::endl;
+        std::cout << "FULL" << std::endl;
     if( v1.isParallel() )
-        std::cout << "IS PARALLEL" << std::endl;
+        std::cout << "PARALLEL" << std::endl;
 }
