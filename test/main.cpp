@@ -7,7 +7,7 @@
 //
 
 int main() {
-    Variant v1(1);
+    Variant v1(9);
 
     if( v1.isOrdered() )
         std::cout << "ORDERED" << std::endl;
