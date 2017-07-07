@@ -2,10 +2,10 @@
 
 /**************************** Logging ****************************/
 // TODO: Remove logging
-#include <iostream>
+//#include <iostream>
 
-#define // LOG std::cout << "----"
-#define NLINE std::endl
+//#define LOG std::cout << "----"
+//#define NLINE std::endl
 /*****************************************************************/
 
 std::string variant( int vrnt ) {
