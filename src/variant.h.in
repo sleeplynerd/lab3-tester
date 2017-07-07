@@ -32,15 +32,15 @@
 #include <iostream>
 const bool IS_DEBUG = true;
 
-void log( char* prefix, char* suffix ) {
+void printLog( char* prefix, char* suffix ) {
 	if( IS_DEBUG ) {
 		std::cout << prefix << std::endl;
 		std::cout << suffix << std::endl;
 	}
 }
 
-void log( std::string prefix, std::string suffix) {
-	log( prefix.c_str(), suffix.c_str() );
+void printLog( std::string prefix, std::string suffix) {
+	printLog( prefix.c_str(), suffix.c_str() );
 }
 /*****************************************************************/
 
