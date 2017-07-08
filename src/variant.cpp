@@ -71,9 +71,8 @@ Variant::Node::Node( char pNode, std::string pForb ):
 	forbidden( pForb ) {}
 
 bool Variant::isOrdered() {
-	// TODO: fill in "isOrdered()"
 	const std::string output( getOutput() );
-	flag = true;
+	//bool flag = true;
 	char symb;
 	std::string forbidden;
 	int pos;
@@ -87,12 +86,13 @@ bool Variant::isOrdered() {
 			//   другие вершины, дуги которых, предполагается, входят в symb,
 			//   выдаётся ошибка.
 			if( output.find( forbidden[i], pos ) != std::string::npos ) {
-				flag = false;
+				//flag = false;
+				return false;
 			}
 		}
 	}
 
-	return flag;
+	return true;
 }
 
 bool Variant::isRandom() {
