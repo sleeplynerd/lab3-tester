@@ -272,7 +272,7 @@ private:
 		char symbol;
 		std::string forbidden;
 		Node( char, std::string );
-	}
+	};
 
 	static const int DEMO_VRNT = -1;
 	const int VRNT;
