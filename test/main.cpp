@@ -5,6 +5,8 @@
 // #define IOSTREAM_H
 // #include <iostream>
 // #endif /* end of include guard: IOSTREAM_H */
+
+
 TEST( VARIANT_1,  all ) {
     Variant v( 1 );
     EXPECT_TRUE( v.isOrdered() && v.isRandom() && v.isParallel() && v.isFull() );
@@ -87,8 +89,8 @@ TEST( VARIANT_20,  all ) {
 }
 
 
-
-/*int main() {
+/*
+int main() {
     Variant v1(9);
 
     if( v1.isOrdered() )
@@ -99,4 +101,5 @@ TEST( VARIANT_20,  all ) {
         std::cout << "PARALLEL" << std::endl;
     if( v1.isRandom() )
         std::cout << "RANDOM" << std::endl;
-}*/
+}
+*/

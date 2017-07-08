@@ -1,13 +1,5 @@
 #include "variant.h"
 
-/**************************** Logging ****************************/
-// TODO: Remove logging
-//#include <iostream>
-
-//#define LOG std::cout << "----"
-//#define NLINE std::endl
-/*****************************************************************/
-
 std::string variant( int vrnt ) {
 	switch( vrnt ) {
 	case 1:
@@ -58,74 +50,51 @@ std::string variant( int vrnt ) {
 Variant::Variant( int variant ) : VRNT( variant ) {
 	const std::string LIST_DIR( STG_LIST_DIR );
 	const std::string LIST_PFX( STG_LIST_PFX );
-	std::string buf;
-	std::string filePath( LIST_DIR + "/" + LIST_PFX + std::to_string( VRNT ) );
-	std::fstream file( filePath );
 
-	// Первая строка файла - список дуг
+	std::string symb;
+	std::string forb;
+	std::string path( LIST_DIR + "/" + LIST_PFX + std::to_string( VRNT ) );
+	std::fstream file( path );
+
 	std::getline( file, mAlphabet );
-	// Последующие строки - список очередей.
-	for( int i = 0; std::getline( file, buf ); i++) {
-		//printLog( "Stage: ", buf.c_str() );
-		// LOG << "Stage " << i << ": " << buf << NLINE;
-
-		mStages.push_back( Stage( buf, i ) );			// Заполняем список очередей
+	while( std::getline( file, symb ) ) {
+		std::getline( file, forb );
+		for( int i = 0; i < symb.length(); i++ ) {
+			mForbNodes.push_back( Node( symb[i], forb ) );
+		}
 	}
-
-	//printLog( "Alphabet: ", mAlphabet.c_str() );
-	// LOG << "Alphabet: " << mAlphabet << NLINE;
-
-	//printLog( "Output: ", getOutput().c_str() );
-	// LOG << "Output: " << getOutput() << NLINE;
 }
 
 Variant::Variant() : VRNT( DEMO_VRNT ) {
-	mAlphabet.assign( "abcdefghkmnp" );
-	mStages.push_back( Stage( "a", 0) );
-	mStages.push_back( Stage( "cdfb", 1 ) );
-	mStages.push_back( Stage( "edfb", 2 ) );
-	mStages.push_back( Stage( "kgmb", 3 ) );
-	mStages.push_back( Stage( "khmb", 4 ) );
-	mStages.push_back( Stage( "nb", 5 ) );
-	mStages.push_back( Stage( "p", 6 ) );
 }
 
-
-Variant::Stage::Stage( std::string alphVal, int stageVal) : stageAlphabet( alphVal ), stage( stageVal ) {}
-
+Variant::Node::Node( char pNode, std::string pForb ):
+	symbol( pNode ),
+	forbidden( pForb ) {}
 
 bool Variant::isOrdered() {
-	std::string buf( getOutput() );
-	// LOG << "bool isOrdered() ---------------------------------*" << NLINE;
-	// LOG << "buf: " << buf << NLINE;
+	const std::string output( getOutput() );
 	//bool flag = true;
-	bool flag = false;
-	int currStage = 0;
+	char symb;
+	std::string forbidden;
+	int pos;
 
-	if( buf.compare( "" ) != 0 ) {
-		//// LOG << "buf is not an empty string, the flag is true" << NLINE;
-		flag = true;
-	}
-
-	if( flag ) {
-		for( int i = 0; i < buf.length(); i++ ) {
-			// LOG << "Current stage: " << currStage << NLINE;
-			// LOG << "Symbol: " << buf[i] << NLINE;
-			if( isEstStage( buf[i], currStage ) ) {				// Символ относится к текущей очереди
-				//printLog( buf[i].c_str(), to_string( currStage ).c_str() );
-				// LOG << "Stage: " << currStage << ", symbol: " << buf[i] << NLINE << NLINE;
-			}
-			else if( isEstStage( buf[i], currStage + 1 ) ) {	// Символ относится к следующей очереди
-				// LOG << "Stage: " << ( currStage + 1 ) << ", symbol: " << buf[i] << NLINE << NLINE;
-				currStage++;
-			} else {
-				// LOG << "Error. Flag is false." << NLINE << NLINE;
-				flag = false;									// Порядок очередей нарушен
+	for( auto it = mForbNodes.begin(); it != mForbNodes.end(); ++it ) {
+		symb = it -> symbol;
+		forbidden = it -> forbidden;
+		pos = output.find( symb );
+		for( int i = 0; i < forbidden.length(); ++i ) {
+			// Если с того момента, как мы встретили литеру symb, нам встречаются
+			//   другие вершины, дуги которых, предполагается, входят в symb,
+			//   выдаётся ошибка.
+			if( output.find( forbidden[i], pos ) != std::string::npos ) {
+				//flag = false;
+				return false;
 			}
 		}
 	}
 
-	return flag;
+	return true;
 }
 
 bool Variant::isRandom() {
@@ -213,44 +182,6 @@ std::string Variant::getOutput() {
 	return buf;
 }
 
-
 bool Variant::isLongOutput() {
 	return ( getOutput().length() > mAlphabet.length() );
-}
-
-bool Variant::isEstStage( char symbol, int stage ) {
-	// LOG << "bool isEstStage(). Looking for " << symbol << " in stage " << stage << NLINE;
-	bool flag = false;
-
-	for( std::list<Stage>::iterator it = mStages.begin(); it != mStages.end(); ++it ) {
-		// LOG << "In list:" << NLINE << it -> stageAlphabet << NLINE << it -> stage << NLINE << NLINE;
-		if( it -> stage == stage ) {
-			if( it -> stageAlphabet.find( symbol ) != std::string::npos ) {
-				// LOG << "Successful! " << NLINE;
-				flag = true;
-			}
-			break;
-		}
-	}
-
-	// LOG << NLINE;
-
-	return flag;
-}
-
-std::string Variant::getStageFragment( const Stage& stage, const std::string& output ) {
-	std::string buf( "" );
-	int i = 0;
-
-	// Ищем позицию начала очереди
-	while( !isEstStage( output[i], stage.stage ) && ( i < output.length() ) ) {
-		i++;
-	}
-	// Копируем элементы, принадлежащие данной очереди
-	while( isEstStage( output[i], stage.stage ) && ( i < output.length() ) ) {
-		buf.append( 1, output[i] );
-		i++;
-	}
-
-	return buf;
 }

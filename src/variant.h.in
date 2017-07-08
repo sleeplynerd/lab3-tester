@@ -11,6 +11,12 @@
 #include <list>
 #endif /* end of include guard: LIST_H */
 
+#ifndef MAP_H
+#define MAP_H
+#include <map>
+#endif /* end of include guard: MAP_H */
+
+
 #ifndef FSTREAM_H
 #define FSTREAM_H
 #include <fstream>
@@ -262,45 +268,37 @@ public:
 
 
 private:
-	struct Stage {
-		std::string stageAlphabet;
-		int stage;
-		Stage( std::string arcsVal, int stageVal);
-		//Stage& operator=( const Stage& );
+	struct Node {
+		char symbol;
+		std::string forbidden;
+		Node( char, std::string );
 	};
 
 	static const int DEMO_VRNT = -1;
 	const int VRNT;
+
+	/**
+	 * Содержит список вершин графа, которые не могут
+	 *   встречаться после указанной вершины symbol.
+	 */
+	std::list<Node> mForbNodes;
+
+	/**
+	 * Алвавит графа
+	 */
 	std::string mAlphabet;
-	std::list<Stage> mStages;
+
+	/**
+	 * Возвращает вывод в виде последовательности литер вершин графа
+	 */
 	std::string getOutput();
 
-	/**
-	 * Проверка на то, принадлежит ли символ предполагаемой очереди
-	 * @param  symbol Символ
-	 * @param  stage  Номер очереди
-	 */
-	bool isEstStage( char symbol, int stage );
-
-
-
 
 	/**
-	 * Проверяет, что длина вывода больше длины алфавита.
-	 *   Продемонстрировать параллельное выполнение можно в том случае,
-	 *   если длина дуг соответствует количеству появляющихся в выводе
-	 *   литер потоков. В этом случае длина вывода должна быть больше длины
-	 *   алфавита.
+	 * Проверяет, что длина вывода больше длины алфавита mAlphabet.
 	 * @return true, если длина вывода больше длины алфавита
 	 */
 	bool isLongOutput();
 
-	/**
-	 * Получить фрагмент очереди из всего вывода.
-	 * @param  stage  Объект очереди
-	 * @param  output Весь вывод
-	 * @return        Отрезок вывода, соответствующий заданной очереди
-	 */
-	std::string getStageFragment( const Stage& stage, const std::string& output );
 };
 #endif //VARIANT_H
