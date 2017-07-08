@@ -91,7 +91,7 @@ TEST( VARIANT_20,  all ) {
 */
 
 int main() {
-    Variant v1(1);
+    Variant v1(15);
 
     if( v1.isOrdered() )
         std::cout << "ORDERED" << std::endl;
