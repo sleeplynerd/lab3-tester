@@ -59,7 +59,9 @@ Variant::Variant( int variant ) : VRNT( variant ) {
 	std::getline( file, mAlphabet );
 	while( std::getline( file, symb ) ) {
 		std::getline( file, forb );
-		mForbNodes.push_back( Node( symb[0], forb ) );
+		for( int i = 0; i < symb.length(); i++ ) {
+			mForbNodes.push_back( Node( symb[i], forb ) );
+		}
 	}
 }
 
