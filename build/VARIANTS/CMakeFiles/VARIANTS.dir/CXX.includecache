@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/sleeplynerd/Projects/lab3-tester/VARIANTS/VARIANT_1000.cpp
+string
+-
+
+/home/sleeplynerd/Projects/lab3-tester/VARIANTS/VARIANT_9.cpp
+stdlib.h
+-
+unistd.h
+-
+iostream
+-
+stdio.h
+-
+pthread.h
+-
+semaphore.h
+-
+string
+-
+

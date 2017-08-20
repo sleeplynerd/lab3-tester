@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/sleeplynerd/Projects/lab3-tester/src/variant.cpp
+variant.h
+/home/sleeplynerd/Projects/lab3-tester/src/variant.h
+
+src/variant.h
+string
+-
+list
+-
+map
+-
+fstream
+-
+algorithm
+-
+
