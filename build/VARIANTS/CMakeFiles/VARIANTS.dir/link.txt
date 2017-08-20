@@ -1,2 +1,0 @@
-/usr/bin/ar qc libVARIANTS.a  CMakeFiles/VARIANTS.dir/VARIANT_1000.cpp.o CMakeFiles/VARIANTS.dir/VARIANT_9.cpp.o
-/usr/bin/ranlib libVARIANTS.a
